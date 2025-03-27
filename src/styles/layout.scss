@@ -1,23 +1,24 @@
 @use "./config.scss" as config;
 :root {
-	--section-space: 50px;
+	--section-space: 80px;
 	@media (max-width: config.$mbpT) {
-		--section-space: 36px;
+		--section-space: 60px;
 	}
 	// @media (max-width: config.$mbpM) {
 	// 	--section-space: 24px;
 	// }
 }
-.section-space {
+.section-space-top, .section-space {
 	padding-top: var(--section-space);
 }
 .section-space-bottom, .section-space {
 	padding-bottom: var(--section-space);
 }
+
 html {
 	--scroll-width: 0px;
 	&:not(.is-mobile) {
-		--scroll-width: 17px;
+		--scroll-width: 15px;
 	}
 	--scroll-compensation: 0px;
 }
@@ -42,6 +43,9 @@ body main {
 	padding-right: var(--container-save-space);
 	&_wide {
 		max-width: 1440px;
+		@media (max-width: config.$mbpLPC) {
+			max-width: 1240px;
+		}
 	}
 }
 
@@ -57,5 +61,33 @@ body main {
 		flex: 0 0 var(--item-flex-basis);
 		padding-left: var(--row-gap, var(--gap, 0));
 		padding-top: var(--column-gap, var(--gap, 0));
+	}
+}
+.section {
+	&_muted {
+		background-color: var(--color-surface-muted);
+	}
+	&__container {
+		display: flex;
+		flex-direction: column;
+	}
+	&__title {
+		align-self: center;
+		display: inline-block;
+		position: relative;
+		font-weight: 600;
+		font-size: 32px;
+		text-transform: uppercase;
+		margin-bottom: 50px;
+		&::before {
+			content: "";
+			position: absolute;
+			left: 50%;
+			top: calc(100% + 0.06em);
+			transform: translateX(-50%);
+			height: 0.1em;
+			width: 60%;
+			background-color: var(--color-primary);
+		}
 	}
 }

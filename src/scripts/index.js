@@ -2,7 +2,7 @@ import "../styles/index.scss";
 import "vanilla-drawers";
 import throttle from "lodash.throttle";
 import Swiper from "swiper";
-import { Autoplay, Navigation } from "swiper/modules";
+import { Navigation, Pagination, EffectFade, Autoplay } from 'swiper/modules';
 
 import { isMobile } from "./utils.js";
 //import initDisclosures from "./disclosure.js";
@@ -14,6 +14,14 @@ window.app.lenis =  new Lenis({
 	autoRaf: true,
 })
 document.documentElement.classList.toggle("is-mobile", isMobile.any());
+
+// bp set scroll width
+document.documentElement.style.setProperty("--scroll-width", `${window.innerWidth - document.documentElement.offsetWidth}px`);
+// bp theme switch
+initThemes();
+
+initHeroSlider();
+initProjectsSlider();
 
 //initDisclosures();
 app.drawers.init();
@@ -30,118 +38,80 @@ document.querySelectorAll(`[data-component*=":intersection-observer:"]`).forEach
 	intersectionObserver.observe(elem);
 });
 
-// initFooterSubscription();
-
-// function initFooterSubscription() {
-// 	const form = document.querySelector("#subscribe-form");
-// 	const input = document.querySelector(".subscribe__input");
-// 	const errorModalBody = document.querySelector(`[data-drawer="subscription-error"] .drawer__body`);
-// 	const errorMsgTemplate = errorModalBody.innerHTML;
-
-// 	const send = async (token) => {
-// 		const API_KEY = "11EB8AC1618FB46A9AAE12EE88221E3B";
-// 		const email = input.value;
-// 		try {
-// 			const response = await fetch("https://api.adwayusa.com/add/email", {
-// 				method: "POST",
-// 				headers: {
-// 					"Content-Type": "multipart/form-data",
-// 				},
-// 				body: JSON.stringify({
-// 					API_KEY,
-// 					data: {
-// 						email,
-// 					},
-// 				}),
-// 			});
-			
-// 			if (response.ok) {
-// 				// const result = await response.json();
-// 				window.app.drawers.open("subscription-success");
-// 			} else {
-// 				throw new Error(response.statusText);
-// 			}
-// 		} catch(ex) {
-// 				console.error(ex);
-// 			errorModalBody.innerHTML = errorMsgTemplate.replace("{{error-msg}}", `Error: ${ex.message}`);
-// 			window.app.drawers.open("subscription-error");
-// 		}
-// 	}
-// 	form.addEventListener("submit", (e) => {
-// 		e.preventDefault();
-
-// 		grecaptcha.execute(window.app.grecaptchaSiteKey, {action: 'submit'})
-// 		.then(send);
-// 	});
-// }
-
 // Hide title
 // document.addEventListener("scroll", throttle(() => {
 // 	document.documentElement.classList.toggle("hide-title", window.scrollY > 50);
 // }));
 
-// Navigation
-// document.querySelectorAll(`[href*="#"]`).forEach(elem => {
-// 	elem.addEventListener("click", (e) => {
-// 		e.preventDefault();
-// 		const pattern = /.*?(\#.*)/;
-// 		const href = elem.getAttribute("href");
-// 		const match = href.match(pattern);
-// 		const anchor = match ? match[1] : null;
+function initHeroSlider() {
+	new Swiper("#hero-slider", {
+		modules: [Navigation, Pagination, EffectFade, Autoplay],
+		effect: 'fade', // Используем эффект fade
+		fadeEffect: {
+			crossFade: true, // Плавный переход между слайдами
+		},
+		loop: true, // Бесконечный цикл (опционально)
+		speed: 300,
+		autoplay: {
+			delay: 3000, // Автопереключение каждые 3 секунды
+			disableOnInteraction: false, // Не отключать автоплей при взаимодействии
+		},
+		navigation: {
+			nextEl: '#hero-slider-next-btn',
+			prevEl: '#hero-slider-prev-btn',
+		},
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+	})
+}
 
-// 		history.pushState(null, "", anchor);
-// 		app.drawers.close("main-menu");
-// 		window.app.lenis.scrollTo(anchor, { offset: -80 });
-// 	});
-// });
+function initProjectsSlider() {
+	new Swiper("#projects-slider", {
+		modules: [Navigation, Pagination, Autoplay],
+		//loop: true, // Бесконечный цикл (опционально),
+		initialSlide: 1,
+		slidesPerView: 1,
+		spaceBetween: 40,
+		speed: 300,
+		// autoplay: {
+		// 	delay: 3000, // Автопереключение каждые 3 секунды
+		// 	disableOnInteraction: false, // Не отключать автоплей при взаимодействии
+		// },
+		breakpoints: {
+			1120: {
+				slidesPerView: 3,
+				spaceBetween: 32,
+			},
+			768: {
+				slidesPerView: 2,
+				spaceBetween: 32,
+			}
+		},
+		navigation: {
+			nextEl: '#projects-slider-next-btn',
+			prevEl: '#projects-slider-prev-btn',
+		},
+		// pagination: {
+		// 	el: '.swiper-pagination',
+		// 	clickable: true,
+		// },
+	})
+}
+// bp
+function initThemes() {
+	const elems = document.querySelectorAll(".theme-switch__switch");
 
+	const currentTheme = localStorage.getItem("theme") || "dark";
+	document.documentElement.setAttribute("data-theme", currentTheme);
 
-// document.querySelectorAll(`[data-component*=":case-studies-slider:"]`).forEach(root => {
-// 	new Swiper(root, {
-// 		"modules": [Navigation],
-// 		wrapperClass: "case-studies__wrap",
-// 		slideClass: "case-study-card",
-// 		slidesPerView: 1.2,
-// 		spaceBetween: 20,
-// 		navigation: {
-// 			prevEl: ".case-studies__prev",
-// 			nextEl: ".case-studies__next"
-// 		},
-// 		breakpoints: {
-// 			1500: {
-// 				slidesPerView: 4,
-// 				spaceBetween: 30,
-// 			},
-// 			1100: {
-// 				slidesPerView: 4,
-// 				spaceBetween: 20,
-// 			},
-// 			800: {
-// 				slidesPerView: 3,
-// 				spaceBetween: 20,
-// 			},
-// 			560: {
-// 				slidesPerView: 2,
-// 				spaceBetween: 20,
-// 			}
-// 		}
-// 	});
-// });
-// document.querySelectorAll(`[data-component*=":trusted-by-slider:"]`).forEach(root => {
-// 		console.log(root);
-// 	new Swiper(root, {
-// 		wrapperClass: "trusted-by__list",
-// 		slideClass: "trusted-by__item",
-// 		"modules": [Autoplay],
-// 		"loop": true,
-// 		speed: 4000,
-// 		"autoplay": {
-// 			"delay": 0,
-// 			disableOnInteraction: false,
-// 		},
-		
-// 		"slidesPerView": "auto",
-// 		"freeMode": true,
-// 		spaceBetween: 20,
-// 	});
-// });
+	const switchTheme = () => {
+		const currentTheme  = localStorage.getItem("theme") || "light";
+		const nextTheme = currentTheme === "light" ? "dark" : "light";
+		localStorage.setItem("theme", nextTheme);
+		document.documentElement.setAttribute("data-theme", nextTheme);
+	};
+
+	elems.forEach(elem => elem.addEventListener("click", switchTheme));
+}

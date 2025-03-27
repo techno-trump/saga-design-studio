@@ -1,68 +1,112 @@
 @use "./config.scss" as config;
 @use "./mixins.scss" as mixins;
 
+b {
+	font-weight: 500;
+}
 :root {
 	display: flex;
 	flex-direction: column;
-	font-family: "Montserrat";
+	font-family: "Manrope";
 	min-height: 100%;
-
-	--light-900: white;
-	--light-907: rgba(255, 255, 255, 0.70);
-	
-	--dark-900: black;
-	--dark-907: rgba(0, 0, 0, 0.70);
-	--dark-903: rgba(0, 0, 0, 0.30);
-	--dark-901: rgba(0, 0, 0, 0.10);
-	--gray-300: #f7f7f7;
-	--gray-400: #f1f1f1;
-	--gray-500: #dddddd;
-	--gray-600: #8d8d8d;
-	--gray-700: #616162;
-	--rose-500: #ff604b;
-	--blue-300: rgba(0, 183, 255, 0.884);
-	--blue-600: rgb(0, 129, 180);
-
-	--brand-primary-color: #19a9dd;
-
-	--green-700: rgb(37, 136, 37);
+	color: var(--color-text-primary);
+	overflow-y: scroll;
+	overflow-x: auto;
 	--container-save-space: 32px;
 	@media (max-width: config.$mbpMM) {
 		--container-save-space: 16px;
+	}
+	
+}
+.ratio-wrap {
+	position: relative;
+	// &_lazy:not(._loaded) &__inner::after {
+	// 	@include spinner;
+	// }
+	&::before {
+		content: "";
+		display: inline-block;
+		padding-top: var(--ratio, 50%);
+	}
+	& img, & video, & &__item {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
+	&_cut img, &_cut video, &_cut &__item {
+		left: -1%;
+		top: -1%;
+		width: 102%;
+		height: 102%;
+	}
+	&_contain img, &_contain video, &_contain &__item {
+		object-fit: contain;
+	}
+	&_cover img, &_cover video, &_cover &__item {
+		object-fit: cover;
 	}
 }
 .btn {
 	display: inline-block;
 	white-space: nowrap;
 	transition: color 0.3s, background-color 0.3s, transform 0.3s, opacity 0.3s, box-shadow 0.3s, border-color 0.3s;
-	color: var(--color, black);
+	color: var(--color, var(--color-text-primary));
 	background-color: var(--bg-color, transparent);
 	cursor: pointer;
 	text-align: center;
+	&_hover-decor {
+		position: relative;
+		left: 0;
+		top: 0;
+		&::after {
+			content: "";
+			position: absolute;
+			left: 50%;
+			top: calc(100% + 0.06em);
+			transform: translateX(-50%);
+			height: 0.1em;
+			width: 0;
+			background-color: var(--color-primary);
+			transition: width 0.3s;
+		}
+		@media (any-hover: hover) {
+			&:hover::after {
+				width: 60%;
+			}
+		}
+	}
 	&_primary {
-		--color: var(--light-900);
-		--bg-color: var(--dark-900);
-		--hover-bg-color: var(--dark-907);
-		padding: 14px 20px;
+		--color: var(--color-text-light);
+		--bg-color: var(--color-primary);
+		--hover-bg-color: var(--color-primary-light);
+		
+	}
+	&_md#{&}_primary {
+		font-weight: 500;
+		font-size: 20px;
+		padding: 14px 40px;
 		border-radius: 5px;
 	}
+	&_nav {
+		--hover-color: var(--color-primary-light);
+	}
+	&_light#{&}_nav {
+		--color: var(--color-text-light);
+	}
 	&_social {
+		--hover-color: var(--color-primary-light);
 		padding: 4px;
 	}
 	&_social &__icon {
 		font-size: 24px;
 	}
-	&_nav {
-		--color: var(--dark-900);
-		--bg-color: var(--light-907);
-		--hover-bg-color: var(--light-900);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 40px;
-		height: 40px;
-		font-size: 20px;
-		border-radius: 50%;
+	&_link {
+		white-space: wrap;
+		font-weight: 500;
+		--color: var(--color-text-primary);
+		--hover-color: var(--color-primary-light);
 		cursor: pointer;
 	}
 	&_prev &__icon {
@@ -90,15 +134,16 @@
 }
 
 .logo {
+	--ratio: 41%;
 	display: inline-block;
-	transition: opacity 0.3s;
-	&_dark {
+	width: var(--width, 156px);
+	transition: opacity 0.3s, transform 0.3s, filter 0.3s;
+	border: 1px solid var(--color-border);
+	html[data-theme="light"] & {
 		filter: invert(1);
 	}
 	&__img {
-		width: var(--width, 120px);
-		height: var(--height, 20px);
-		object-fit: contain;
+	
 	}
 	&__caption {
 		position: absolute;
@@ -106,7 +151,7 @@
 	}
 	@media (any-hover: hover) {
 		&:hover {
-			opacity: 0.6;
+			transform: scale(1.03);
 		}
 	}
 }
@@ -172,4 +217,78 @@
 		pointer-events: none;
 	}
 
+}
+.social-media {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 18px;
+	--color: var(--light-900);
+	--hover-color: var(--light-907);
+}
+.theme-switch {
+	--size: 50px;
+	&__inner {
+		display: grid;
+		grid-auto-flow: column;
+		align-items: center;
+		gap: 10px;
+	}
+	&__icon {
+		font-size: calc(var(--size) * 0.25);
+		color: var(--icons-color, var(--color-text-primary));
+	}
+	&__switch {
+		background-color: var(--body-color, var(--color-surface-alt));
+		border-radius: calc(var(--size) / 4);
+		padding: calc(var(--size) / 12);
+		width: var(--size);
+		cursor: pointer;
+	}
+	html[data-theme="dark"] &__switch {
+		display: flex;
+		justify-content: end;
+	}
+	&__thumb {
+		width: calc(var(--size) / 3);
+		height: calc(var(--size) / 3);
+		border-radius: 50%;
+		background-color: var(--thumb-color, var(--color-primary));
+		transition: background-color 0.3s;
+	}
+	&__switch:hover &__thumb {
+		background-color: var(--thumb-hover-color, var(--color-primary-light));
+	}
+}
+
+.swiper-pagination-bullet {
+	transition: opacity 0.3s, background-color 0.3s;
+	cursor: pointer;
+}
+.swiper-pagination {
+	display: flex;
+	gap: 10px;
+	&_hero .swiper-pagination-bullet {
+		--size: 16px;
+		width: var(--size);
+		height: var(--size);
+		background-color: var(--color-surface-alt);
+		opacity: 0.7;
+		border-radius: 50%;
+		@media (any-hover: hover) {
+			&:hover {
+				background-color: var(--color-primary-light);
+			}
+		}
+		@media (max-width: config.$mbpT) {
+			--size: 14px;
+		}
+		@media (max-width: config.$mbpM) {
+			--size: 12px;
+		}
+	}
+	&_hero .swiper-pagination-bullet-active {
+		background-color: var(--color-primary);
+		opacity: 0.9;
+		
+	}
 }

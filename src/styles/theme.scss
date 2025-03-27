@@ -1,0 +1,76 @@
+:root {
+	/* Цвета не зависящие от темы */
+	--color-surface-dark: #1c283a;
+	--color-text-light: white;
+	--color-text-light-muted: #e7e7e7;
+
+	/* Основные акценты */
+  --color-primary: #f14e4e;
+  --color-primary-light: #ff6b6b;
+  --color-primary-dark: #e41212;
+}
+html[data-theme="dark"] {
+	/* Базовые поверхности */
+  --color-surface: black; /* Основной фон rgb(43, 43, 43); */ 
+	--color-surface-muted: #212121; /* Фон ещё на уровень ниже */
+	
+  --color-surface-alt: #e7e7e7; /* Вторичный фон */
+  
+  --color-elevation-1: #f8f9fa; /* Лёгкое поднятие */
+  --color-elevation-2: #e9ecef; /* Более выраженная "тень" */
+
+  /* Текст */
+  --color-text-primary: white;
+  --color-text-secondary: #e7e7e7;
+  --color-text-muted: #adb5bd;
+  --color-text-primary-inverted: black;
+	--color-text-secondary-inverted: #212121;
+
+  /* Вспомогательные состояния */
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-danger: #dc3545;
+  --color-info: #17a2b8;
+
+  /* Границы и разделители */
+  --color-border: #dee2e6;
+  --color-border-strong: #ced4da;
+  --color-border-light: #e9ecef;
+
+  /* Интерфейсные состояния */
+  --color-hover: rgba(0, 123, 255, 0.1);
+  --color-focus: rgba(0, 123, 255, 0.3);
+  --color-disabled: #6c757d;
+}
+html[data-theme="light"] {
+	/* Базовые поверхности */
+  --color-surface: white; /* Основной фон rgb(43, 43, 43); */ 
+	--color-surface-muted: #f8f9fa; /* Фон ещё на уровень ниже */
+  --color-surface-alt: #e7e7e7; /* Вторичный фон */
+  
+  --color-elevation-1: #f8f9fa; /* Лёгкое поднятие */
+  --color-elevation-2: #e9ecef; /* Более выраженная "тень" */
+
+  /* Текст */
+  --color-text-primary: black;
+  --color-text-secondary: #e7e7e7;
+  --color-text-muted: #adb5bd;
+  --color-text-primary-inverted: white;
+	--color-text-secondary-inverted: #212121;
+
+  /* Вспомогательные состояния */
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-danger: #dc3545;
+  --color-info: #17a2b8;
+
+  /* Границы и разделители */
+  --color-border: #dee2e6;
+  --color-border-strong: #ced4da;
+  --color-border-light: #e9ecef;
+
+  /* Интерфейсные состояния */
+  --color-hover: rgba(0, 123, 255, 0.1);
+  --color-focus: rgba(0, 123, 255, 0.3);
+  --color-disabled: #6c757d;
+}

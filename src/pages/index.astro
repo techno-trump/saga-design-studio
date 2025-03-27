@@ -1,21 +1,313 @@
 ---
+import RatioWrap from 'src/components/basic/RatioWrap.astro';
 import Layout from '../layouts/Layout.astro';
 
 //const portalHost = import.meta.env.ASTRO_APP_CABINET_HOST;
 
-// const cases = [
-// 						{
-// 							src: "img/case_1.jpg",
-// 							caseSrc: "img/case-studies/action-water.jpg",
-// 							stack: "Swarm + Sampling + Retargeting",
-// 							name: "Action Water",
-// 							desc: "On-car projection + car wrap + product sampling at Cal USC Game.",
-// 							drawer: "action-water",
-// 						},
-// 					];
+const heroImages = [
+						{
+							src: "img/hero/01.webp",
+							alt: "Design example",
+						},
+						{
+							src: "img/hero/02.webp",
+							alt: "Design example",
+						},
+						{
+							src: "img/hero/03.webp",
+							alt: "Design example",
+						},
+						{
+							src: "img/hero/04.webp",
+							alt: "Design example",
+						},
+						{
+							src: "img/hero/05.webp",
+							alt: "Design example",
+						},
+					];
+const cases = [
+		{
+			thumb: "img/projects/Belleglade Residence/Rendering 2-small.webp",
+			src: "img/projects/Belleglade Residence/Rendering 2.webp",
+			name: "Belleglade Residence",
+		},
+		{
+			src: "img/projects/Belleglade Residence/Rendering 3.webp",
+			name: "Belleglade Residence",
+		},
+		{
+			src: "img/projects/Belleglade Residence/Rendering 4.webp",
+			name: "Belleglade Residence",
+		},
+		{
+			src: "img/projects/Belleglade Residence/Rendering 5.webp",
+			name: "Belleglade Residence",
+		},
+
+		{
+			thumb: "img/projects/Cynthia Duplex/Enscape_2019-09-26-08-52-12.webp",
+			src: "img/projects/Cynthia Duplex/Enscape_2019-09-26-08-52-12.webp",
+			name: "Cynthia Duplex",
+		},
+		{
+			src: "img/projects/Cynthia Duplex/front.webp",
+			name: "Cynthia Duplex",
+		},
+		{
+			src: "img/projects/Cynthia Duplex/E5-SEPT.webp",
+			name: "Cynthia Duplex",
+		},
+		{
+			src: "img/projects/Cynthia Duplex/E3-SEPT-context.webp",
+			name: "Cynthia Duplex",
+		},
+		{
+			src: "img/projects/Cynthia Duplex/Cynthia Duplex-3.webp",
+			name: "Cynthia Duplex",
+		},
+		{
+			src: "img/projects/Cynthia Duplex/Cynthia Duplex-2.webp",
+			name: "Cynthia Duplex",
+		},
+		{
+			src: "img/projects/Cynthia Duplex/Cynthia Duplex-1.webp",
+			name: "Cynthia Duplex",
+		},
+
+		{
+			thumb: "img/projects/Kelton Residence/3605 Kelton Avenue-1 (2).webp",
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-1 (2).webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-1.webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-8.webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-10.webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-16.webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-30.webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-32.webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-36.webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-37.webp",
+			name: "Kelton Residence",
+		},
+		{
+			src: "img/projects/Kelton Residence/3605 Kelton Avenue-41.webp",
+			name: "Kelton Residence",
+		},
+
+		{
+			thumb: "img/projects/Norma Residence/Backyard 1-small.webp",
+			src: "img/projects/Norma Residence/Backyard 1-Final.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Backyard 3-Final.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Bedroom night-Final.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Bedroom-Final.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Dining-Final.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Front daylight 1-Final.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Front daylight-Final.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Front daylight-small.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Front night - Final.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Front night-small.webp",
+			name: "Norma Residence",
+		},
+		{
+			src: "img/projects/Norma Residence/Living-Final.webp",
+			name: "Norma Residence",
+		},
+
+		{
+			thumb: "img/projects/Tahoe Residence/Back 1-small.webp",
+			src: "img/projects/Tahoe Residence/Back 1-small.webp",
+			name: "Tahoe Residence",
+		},
+		{
+			src: "img/projects/Tahoe Residence/Back 2-small.webp",
+			name: "Tahoe Residence",
+		},
+		{
+			src: "img/projects/Tahoe Residence/Back 3-small.webp",
+			name: "Tahoe Residence",
+		},
+		{
+			src: "img/projects/Tahoe Residence/Front 1-small.webp",
+			name: "Tahoe Residence",
+		},
+		{
+			src: "img/projects/Tahoe Residence/Interior 1-small.webp",
+			name: "Tahoe Residence",
+		},
+
+		{
+			thumb: "img/projects/Trinidad Residence/65 Trinidad Bend-5.webp",
+			src: "img/projects/Trinidad Residence/65 Trinidad Bend-5.webp",
+			name: "Trinidad Residence",
+		},
+		{
+			src: "img/projects/Trinidad Residence/65 Trinidad Bend-11.webp",
+			name: "Trinidad Residence",
+		},
+		{
+			src: "img/projects/Trinidad Residence/65 Trinidad Bend-21.webp",
+			name: "Trinidad Residence",
+		},
+		{
+			src: "img/projects/Trinidad Residence/65 Trinidad Bend-25.webp",
+			name: "Trinidad Residence",
+		},
+		{
+			src: "img/projects/Trinidad Residence/65 Trinidad Bend-31.webp",
+			name: "Trinidad Residence",
+		},
+		{
+			src: "img/projects/Trinidad Residence/65 Trinidad Bend-33.webp",
+			name: "Trinidad Residence",
+		},
+
+		{
+			thumb: "img/projects/Veteran Residence/FRONT 1 - SHORT.webp",
+			src: "img/projects/Veteran Residence/FRONT 1 - SHORT.webp",
+			name: "Veteran Residence",
+		},
+		{
+			src: "img/projects/Veteran Residence/FRONT 2 - SHORT.webp",
+			name: "Veteran Residence",
+		},
+
+		{
+			thumb: "img/projects/Warsaw Residence/Back-presentation.webp",
+			src: "img/projects/Warsaw Residence/Back-presentation.webp",
+			name: "Warsaw Residence",
+		},
+		{
+			src: "img/projects/Warsaw Residence/Front 1-post comments - JADU.webp",
+			name: "Warsaw Residence",
+		},
+		{
+			src: "img/projects/Warsaw Residence/Interior 1-presentation.webp",
+			name: "Warsaw Residence",
+		},
+		{
+			src: "img/projects/Warsaw Residence/Interior 2-presentation.webp",
+			name: "Warsaw Residence",
+		},
+		{
+			src: "img/projects/Warsaw Residence/Interior 3.webp",
+			name: "Warsaw Residence",
+		},
+	];
 ---
 
 <Layout title="Boilerplate" description="Boilerplate">
+	<section class="hero">
+		<div id="hero-slider" class="hero-slider swiper hero__slider">
+			<div class="hero-slider__wrapper swiper-wrapper">
+				{
+					heroImages.map(({ src, alt }) =>
+						<div class="ratio-wrap ratio-wrap_cover hero-slider__slide swiper-slide">
+							<img src={src} alt={alt} class="ratio-wrap__item" loading="lazy">
+						</div>
+					)
+				}
+			</div>
+		</div>
+		<div class="hero__front">
+			<div class="container container_wide hero__container">
+				<div class="hero__inner">
+					<div class="hero__main">
+						<h1 class="hero__title">exceptional design<br>build services</h1>
+						<span class="hero__subtitle">We take your project from conception to completion!</span>
+						<button type="button" class="btn btn_md btn_primary hero__btn">Free Estimate</button>
+					</div>
+					<div class="hero__slider-controls">
+						<div class="hero__slider-nav slider-nav">
+							<button id="hero-slider-prev-btn" type="button" class="btn btn_nav btn_light hero__btn hero__btn_prev">
+								<div class="btn__icon icon-nav-arrow-left"></div>
+							</button>
+							<button id="hero-slider-next-btn" type="button" class="btn btn_nav btn_light hero__btn hero__btn_next">
+								<div class="btn__icon icon-nav-arrow-right"></div>
+							</button>
+						</div>
+						<div class="hero__slider-pagination swiper-pagination swiper-pagination_hero"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="projects section section_muted section-space">
+		<div class="container container_wide projects__container section__container">
+			<h2 class="section__title">Projects</h2>
+			<div id="projects-slider" class="projects__body swiper">
+				<div class="projects__wrapper swiper-wrapper">
+					{
+						cases.map(({ src, name, thumb }) =>
+							<a href={src} data-alt={name} data-fslightbox="projects" class:list={["project-card projects__card swiper-slide", thumb !== undefined && "project-card_main"]}>
+								<div class="project-card__img-wrap ratio-wrap ratio-wrap_cover">
+									<img src={src} alt={name} class="ratio-wrap__item" loading="lazy">
+								</div>
+								<h3 class="project-card__title">{name}</h3>
+							</a>
+						)
+					}
+				</div>
+			</div>
+			<div class="projects__slider-nav slider-nav">
+				<button id="projects-slider-prev-btn" type="button" class="btn btn_nav">
+					<div class="btn__icon icon-nav-arrow-left"></div>
+				</button>
+				<button id="projects-slider-next-btn" type="button" class="btn btn_nav">
+					<div class="btn__icon icon-nav-arrow-right"></div>
+				</button>
+			</div>
+		</div>
+	</section>
 	<div class="drawers" slot="drawers">
 	
 	</div>

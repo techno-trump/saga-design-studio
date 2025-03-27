@@ -1,4 +1,6 @@
+@use "./config.scss" as config;
 @use "./null.scss";
+@use "./theme";
 @use "./fonts";
 @use "./icon-fonts";
 @use "./typography.scss";
@@ -6,3 +8,229 @@
 @use "./framework.scss";
 @use "./header.scss";
 @use "./footer.scss";
+
+.hero-slider {
+	display: flex;
+	flex-direction: column;
+
+	&__wrapper {
+		flex: 1 1 auto;
+	}
+	&__slide {
+		--ratio: 40%;
+		flex: 1 0 100%;
+		cursor: grab;
+	}
+	
+}
+.swiper-wrapper {
+	display: flex;
+}
+.swiper-slide {
+	flex: 1 0 auto;
+}
+
+.slider-nav {
+	display: flex;
+	gap: 40px;
+	pointer-events: all;
+}
+.hero {
+	display: grid;
+	grid-template-columns: 100%;
+	overflow: hidden;
+	& > * {
+		grid-row: 1/span 1;
+		grid-column: 1/span 1;
+	}
+	&__slider {
+		position: relative;
+		z-index: 0;
+	}
+	&__front {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		pointer-events: none;
+	}
+	&__container {
+		flex: 1 1 auto;
+		display: flex;
+	}
+	&__inner {
+		flex: 0 1 min-content;
+		position: relative;
+		left: 0;
+		top: 0;
+		justify-self: start;
+		min-width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: start;
+		gap: 80px;
+		pointer-events: none;
+		padding: max(5vw, var(--section-space)) 0;
+		padding-right: 40px;
+		@media (max-width: config.$mbpT) {
+			position: static;
+			flex-basis: 100%;
+			width: 100%;
+			flex-direction: row;
+			gap: 40px;
+			align-items: end;
+			padding-right: 0;
+		}
+		@media (max-width: config.$mbpM) {
+			align-items: stretch;
+			flex-direction: column;
+			gap: 60px;
+		}
+		& > * {
+			pointer-events: all;
+		}
+		&::before {
+			content: "";
+			position: absolute;
+			right: 0;
+			top: 0;
+			z-index: -1;
+			height: 100%;
+			width: 100vw;
+			background-color: var(--color-surface-dark);
+			opacity: 0.6;
+			@media (max-width: config.$mbpT) {
+				width: 100%;
+			}
+		}
+	}
+	&__main {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+	}
+	&__title {
+		color: var(--color-text-light);
+		text-transform: uppercase;
+		font-weight: 500;
+		font-size: 42px;
+		line-height: 1.3;
+		max-width: 580px;
+		margin-bottom: 16px;
+		@media (max-width: config.$mbpMM) {
+			font-size: 34px;
+		}
+	}
+	&__subtitle {
+		color: var(--color-text-light-muted);
+		font-size: 24px;
+		line-height: 1.3;
+		max-width: 420px;
+		margin-bottom: 60px;
+		@media (max-width: config.$mbpMM) {
+			font-size: 20px;
+		}
+	}
+	&__btn {
+		@media (max-width: config.$mbpM) {
+			align-self: center;
+		}
+	}
+	&__slider-controls {
+		display: grid;
+		gap: 40px;
+		@media (max-width: config.$mbpT) {
+			justify-items: end;
+		}
+		@media (max-width: config.$mbpM) {
+			align-self: center;
+		}
+	}
+	&__slider-nav {
+		@media (max-width: config.$mbpM) {
+			display: none;
+		}
+	}
+	&__slider-pagination {
+		pointer-events: all;
+	}
+}
+
+.projects {
+	overflow: hidden;
+	&__container {
+
+	}
+	&__body {
+		margin-bottom: 30px;
+		@media (max-width: 1120px) {
+			margin-bottom: 30px;
+		}
+	}
+	&__wrapper {
+	}
+	&__slider-nav {
+		align-self: center;
+	}
+}	
+.project-card {
+	display: inline-block;
+	position: relative;
+	z-index: 0;
+	min-width: 300px;
+	&:not(&_main) {
+		display: none;
+	}
+	&__img-wrap {
+		--ratio: 65%;
+		overflow: hidden;
+	}
+	& .ratio-wrap__item {
+		will-change: transform;
+		transition: transform 0.3s;
+	}
+	&::after {
+		content: "";
+		display: inline-block;
+		position: absolute;
+		width: 0;
+		height: 3px;
+		bottom: 0;
+		left: 0;
+		transition: width 0.3s;
+		background-color: var(--color-primary);
+	}
+	@media (any-hover: hover) {
+		&:hover .ratio-wrap__item {
+			transform: scale(1.04);
+		}
+		&:hover::after {
+			width: 100%;
+		}
+	}
+	&__title {
+		color: var(--color-text-light);
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		z-index: 0;
+		width: 100%;
+		padding: 6%;
+		font-weight: 600;
+		font-size: 24px;
+		padding-bottom: calc(6% + 4px);
+		&::before {
+			content: "";
+			display: inline-block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background-color: var(--color-surface-dark);
+			opacity: 0.6;
+		}
+	}
+}

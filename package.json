@@ -18,7 +18,7 @@
     "lenis": "^1.1.20",
     "lodash.throttle": "^4.1.1",
     "sass": "^1.83.0",
-    "swiper": "^11.2.5",
+    "swiper": "^11.2.6",
     "tom-select": "^2.4.1",
     "vanilla-drawers": "^1.1.23",
     "vite-plugin-mkcert": "^1.17.6"
