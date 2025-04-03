@@ -1,13 +1,14 @@
 :root {
 	/* Цвета не зависящие от темы */
-	--color-surface-dark: #1c283a;
+	--color-surface-dark: #2e2b24;
 	--color-text-light: white;
+	--color-text-dark: #383839;
 	--color-text-light-muted: #e7e7e7;
 
 	/* Основные акценты */
-  --color-primary: #f14e4e;
-  --color-primary-light: #ff6b6b;
-  --color-primary-dark: #e41212;
+  --color-primary: #bb5a00;
+  --color-primary-light: #d36b0a;
+  --color-primary-dark: #713600;
 }
 html[data-theme="dark"] {
 	/* Базовые поверхности */
@@ -20,7 +21,8 @@ html[data-theme="dark"] {
   --color-elevation-2: #e9ecef; /* Более выраженная "тень" */
 
   /* Текст */
-  --color-text-primary: white;
+  --color-text-primary: #f6f0de;
+	--color-text-base: white;
   --color-text-secondary: #e7e7e7;
   --color-text-muted: #adb5bd;
   --color-text-primary-inverted: black;
@@ -44,17 +46,18 @@ html[data-theme="dark"] {
 }
 html[data-theme="light"] {
 	/* Базовые поверхности */
-  --color-surface: white; /* Основной фон rgb(43, 43, 43); */ 
+  --color-surface: #f5f1e5; /* Основной фон rgb(43, 43, 43); */
 	--color-surface-muted: #f8f9fa; /* Фон ещё на уровень ниже */
   --color-surface-alt: #e7e7e7; /* Вторичный фон */
   
-  --color-elevation-1: #f8f9fa; /* Лёгкое поднятие */
+  --color-surface-light: #f8f9fa; /* Лёгкое поднятие */
   --color-elevation-2: #e9ecef; /* Более выраженная "тень" */
 
   /* Текст */
-  --color-text-primary: black;
+  --color-text-primary: #f6f0de;
+	--color-text-base: #383839;
   --color-text-secondary: #e7e7e7;
-  --color-text-muted: #adb5bd;
+  --color-text-muted: #666;
   --color-text-primary-inverted: white;
 	--color-text-secondary-inverted: #212121;
 

@@ -22,6 +22,7 @@ initThemes();
 
 initHeroSlider();
 initProjectsSlider();
+initHeaderChangeOnScroll();
 
 //initDisclosures();
 app.drawers.init();
@@ -50,10 +51,10 @@ function initHeroSlider() {
 		fadeEffect: {
 			crossFade: true, // Плавный переход между слайдами
 		},
-		loop: true, // Бесконечный цикл (опционально)
-		speed: 300,
+		loop: true,
+		speed: 600,
 		autoplay: {
-			delay: 3000, // Автопереключение каждые 3 секунды
+			delay: 5000,
 			disableOnInteraction: false, // Не отключать автоплей при взаимодействии
 		},
 		navigation: {
@@ -114,4 +115,11 @@ function initThemes() {
 	};
 
 	elems.forEach(elem => elem.addEventListener("click", switchTheme));
+}
+
+function initHeaderChangeOnScroll() {
+	const header = document.querySelector("header");
+	document.addEventListener("scroll", throttle(() => {
+		header.classList.toggle("header_background", document.documentElement.scrollTop > 50);
+	}, 50));
 }

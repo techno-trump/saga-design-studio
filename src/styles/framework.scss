@@ -7,16 +7,11 @@ b {
 :root {
 	display: flex;
 	flex-direction: column;
-	font-family: "Manrope";
+	font-family: "Montserrat";
 	min-height: 100%;
-	color: var(--color-text-primary);
+	color: var(--color-text-base);
 	overflow-y: scroll;
 	overflow-x: auto;
-	--container-save-space: 32px;
-	@media (max-width: config.$mbpMM) {
-		--container-save-space: 16px;
-	}
-	
 }
 .ratio-wrap {
 	position: relative;
@@ -52,7 +47,7 @@ b {
 	display: inline-block;
 	white-space: nowrap;
 	transition: color 0.3s, background-color 0.3s, transform 0.3s, opacity 0.3s, box-shadow 0.3s, border-color 0.3s;
-	color: var(--color, var(--color-text-primary));
+	color: var(--color, var(--color-text-base));
 	background-color: var(--bg-color, transparent);
 	cursor: pointer;
 	text-align: center;
@@ -64,16 +59,16 @@ b {
 			content: "";
 			position: absolute;
 			left: 50%;
-			top: calc(100% + 0.06em);
+			top: calc(100% + 0.08em);
 			transform: translateX(-50%);
-			height: 0.1em;
+			height: 1px;
 			width: 0;
-			background-color: var(--color-primary);
+			background-color: var(--hover-color, var(--color-primary));
 			transition: width 0.3s;
 		}
 		@media (any-hover: hover) {
 			&:hover::after {
-				width: 60%;
+				width: 40%;
 			}
 		}
 	}
@@ -96,7 +91,7 @@ b {
 		--color: var(--color-text-light);
 	}
 	&_social {
-		--hover-color: var(--color-primary-light);
+		--hover-color: var(--color-primary);
 		padding: 4px;
 	}
 	&_social &__icon {
@@ -105,8 +100,8 @@ b {
 	&_link {
 		white-space: wrap;
 		font-weight: 500;
-		--color: var(--color-text-primary);
-		--hover-color: var(--color-primary-light);
+		--color: var(--color-text-base);
+		--hover-color: var(--color-primary);
 		cursor: pointer;
 	}
 	&_prev &__icon {
@@ -134,16 +129,23 @@ b {
 }
 
 .logo {
-	--ratio: 41%;
+	//--ratio: 50%;
 	display: inline-block;
-	width: var(--width, 156px);
-	transition: opacity 0.3s, transform 0.3s, filter 0.3s;
-	border: 1px solid var(--color-border);
-	html[data-theme="light"] & {
-		filter: invert(1);
+	//width: var(--width, 100px);
+	will-change: transform;
+	transition: opacity 0.3s, transform 0.3s, color 0.3s;
+	& figure {
+		display: flex;
 	}
 	&__img {
-	
+		opacity: 1;
+		transition: opacity 0.3s;
+		html[data-theme="light"] &_dark {
+			opacity: 0;
+		}
+		html[data-theme="dark"] &_light {
+			opacity: 0;
+		}
 	}
 	&__caption {
 		position: absolute;
@@ -235,7 +237,7 @@ b {
 	}
 	&__icon {
 		font-size: calc(var(--size) * 0.25);
-		color: var(--icons-color, var(--color-text-primary));
+		color: var(--icons-color, var(--color-text-base));
 	}
 	&__switch {
 		background-color: var(--body-color, var(--color-surface-alt));
@@ -261,34 +263,34 @@ b {
 }
 
 .swiper-pagination-bullet {
-	transition: opacity 0.3s, background-color 0.3s;
+	transition: opacity 0.3s, background-color 0.3s, width 0.3s;
 	cursor: pointer;
 }
 .swiper-pagination {
 	display: flex;
 	gap: 10px;
 	&_hero .swiper-pagination-bullet {
-		--size: 16px;
+		--size: 5px;
 		width: var(--size);
 		height: var(--size);
 		background-color: var(--color-surface-alt);
 		opacity: 0.7;
-		border-radius: 50%;
+		border-radius: var(--size);
 		@media (any-hover: hover) {
 			&:hover {
 				background-color: var(--color-primary-light);
 			}
 		}
-		@media (max-width: config.$mbpT) {
-			--size: 14px;
-		}
-		@media (max-width: config.$mbpM) {
-			--size: 12px;
-		}
+		// @media (max-width: config.$mbpT) {
+		// 	--size: 14px;
+		// }
+		// @media (max-width: config.$mbpM) {
+		// 	--size: 12px;
+		// }
 	}
 	&_hero .swiper-pagination-bullet-active {
-		background-color: var(--color-primary);
-		opacity: 0.9;
-		
+		width: calc(var(--size) * 3);
+		background-color: var(--color-surface-light);
+		opacity: 1;
 	}
 }

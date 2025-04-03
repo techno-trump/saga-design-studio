@@ -1,12 +1,22 @@
 @use "./config.scss" as config;
 :root {
 	--section-space: 80px;
+	--container-save-space: 60px;
 	@media (max-width: config.$mbpT) {
 		--section-space: 60px;
 	}
 	// @media (max-width: config.$mbpM) {
 	// 	--section-space: 24px;
 	// }
+	@media (max-width: config.$mbpPC) {
+		--container-save-space: 40px;
+	}
+	@media (max-width: config.$mbpT) {
+		--container-save-space: 24px;
+	}
+	@media (max-width: config.$mbpMM) {
+		--container-save-space: 16px;
+	}
 }
 .section-space-top, .section-space {
 	padding-top: var(--section-space);
@@ -39,13 +49,32 @@ body main {
 .container {
 	width: 100%;
 	margin: auto;
-	padding-left: var(--container-save-space);
-	padding-right: var(--container-save-space);
-	&_wide {
-		max-width: 1440px;
-		@media (max-width: config.$mbpLPC) {
-			max-width: 1240px;
+	
+	&_titled {
+		display: grid;
+		grid-template-columns: 50px 1fr 50px;
+		@media (max-width: config.$mbpT) {
+			grid-template-columns: 1fr;
 		}
+	}
+	&_titled &__aside {
+		font-family: "Baskervville";
+		position: sticky;
+		top: 50%;
+		writing-mode: vertical-lr;
+		text-orientation: upright;
+		align-self: start;
+		text-transform: uppercase;
+		@media (max-width: config.$mbpT) {
+			display: none;
+		}
+		&:last-child {
+			writing-mode: vertical-rl;
+		}
+	}
+	&_base {
+		padding-left: var(--container-save-space);
+		padding-right: var(--container-save-space);
 	}
 }
 
@@ -64,6 +93,9 @@ body main {
 	}
 }
 .section {
+	&_base {
+		background-color: var(--color-surface);
+	}
 	&_muted {
 		background-color: var(--color-surface-muted);
 	}
@@ -72,22 +104,24 @@ body main {
 		flex-direction: column;
 	}
 	&__title {
+		font-family: "Baskervville";
 		align-self: center;
 		display: inline-block;
 		position: relative;
 		font-weight: 600;
-		font-size: 32px;
+		font-size: 20px;
+		letter-spacing: 0.3em;
 		text-transform: uppercase;
 		margin-bottom: 50px;
-		&::before {
-			content: "";
-			position: absolute;
-			left: 50%;
-			top: calc(100% + 0.06em);
-			transform: translateX(-50%);
-			height: 0.1em;
-			width: 60%;
-			background-color: var(--color-primary);
-		}
+		// &::before {
+		// 	content: "";
+		// 	position: absolute;
+		// 	left: 50%;
+		// 	top: calc(100% + 0.06em);
+		// 	transform: translateX(-50%);
+		// 	height: 0.1em;
+		// 	width: 60%;
+		// 	background-color: var(--color-primary);
+		// }
 	}
 }

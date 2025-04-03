@@ -1,15 +1,19 @@
 @use "./config.scss" as config;
 
 .main-menu {
-	font-size: 20px;
-	font-weight: 500;
+	font-size: 16px;
+	//font-weight: 500;
 	line-height: 1.3;
+	letter-spacing: 0.04em;
 	transition: background-color 0.3s, visibility 0.3s;
+	text-transform: uppercase;
 	@media (max-width: config.$mbpT) {
 		font-size: 24px;
 		width: 100%;
 		overflow: hidden;
 		visibility: hidden;
+		--color: var(--color-text-base);
+		--hover-color: var(--color-text-base);
 		&::before {
 			content: "";
 			position: absolute;
@@ -53,7 +57,7 @@
 			align-items: center;
 			justify-content: center;
 			padding: 60px 20px;
-			gap: 60px;
+			gap: 80px;
 		}
 	}
 	&__social {
@@ -80,13 +84,11 @@
 		flex-wrap: wrap;
 		gap: 14px 40px;
 		white-space: nowrap;
-		--hover-color: var(--dark-907);
 		@media (max-width: config.$mbpT) {
 			gap: 18px 30px;
 			flex-direction: column;
 		}
 	}
-	
 }
 
 .burger-btn {
@@ -95,7 +97,7 @@
 	justify-content: center;
 	width: var(--size, 32px);
 	height: var(--size, 32px);
-	transition: none;
+	
 	&__inner {
 		position: relative;
 		display: inline-grid;
@@ -107,13 +109,19 @@
 			height: 2px;
 			border-radius: 2px;
 			background-color: var(--color, currentColor);
-			transition: transform 0.4s;
+			transition: transform 0.4s, background-color 0.3s;
+			
 			&:nth-child(2) {
 				transition-delay: 0.2s, 0s;
 			}
 			&:last-child {
   			transition-delay: 0.1s;
 			}
+		}
+	}
+	@media (any-hover: hover) {
+		&:hover &__inner > span {
+			background-color: var(--hover-color, currentColor);
 		}
 	}
 	.drawer-trigger_active &__inner {
@@ -133,15 +141,16 @@
 }
 
 .header {
-	position: sticky;
+	position: fixed;
+	width: calc(100% - var(--scroll-compensation));
 	left: 0;
 	top: 0;
 	z-index: 100;
-	backdrop-filter: blur(10px);
 	color: var(--color-text-primary);
+	--color: var(--color-text-primary);
+	--hover-color: var(--color-text-primary);
 	padding: 12px 0 12px;
 	transition: background-color 0.3s;
-	backdrop-filter: blur(20px);
 	&::before {
 		content: "";
 		display: inline-block;
@@ -151,8 +160,18 @@
 		width: 100%;
 		height: 100%;
 		z-index: -1;
-		opacity: 0.8;
-		background-color: var(--color-surface);
+		opacity: 0.5;
+		background-color: var(--color-surface-dark);
+		transition: opacity 0.3s;
+	}
+	&_background {
+		color: var(--color-text-base);
+		--color: var(--color-text-base);
+		--hover-color: var(--color-text-base);
+		&::before {
+			background-color: var(--color-surface);
+			opacity: 1;
+		}
 	}
 	&__theme-switch {
 		@media (max-width: config.$mbpT) {
@@ -160,14 +179,18 @@
 		}
 	}
 	&__logo {
-		--width: 150px;
+		font-size: 50px;
 		@media (max-width: config.$mbpT) {
-			--width: 120px;
+			font-size: 40px;
 		}
+		// @media (max-width: config.$mbpM) {
+		// 	font-size: 30px;
+		// }
 	}
 	&__main-container {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		gap: 20px 30px;
 		background-color: transparent;
 		@media (max-width: config.$mbpT) {
@@ -175,7 +198,7 @@
 		}
 	}
 	&__menu {
-		flex: 1 1 auto;
+		flex: 0 1 auto;
 		@media (max-width: config.$mbpT) {
 			position: fixed;
 			right: 0;
@@ -186,6 +209,7 @@
 		}
 	}
 	&__menu-btn {
+		--hover-color: var(--color-primary);
 		position: relative;
 		left: 0;
 		top: 0;
@@ -194,7 +218,9 @@
 			display: none;
 		}
 	}
-	
+	&__menu-btn.drawer-trigger_active {
+		--color: var(--color-text-dark);
+	}
 	&__title {
 		font-size: 32px;
 		font-weight: 700;
