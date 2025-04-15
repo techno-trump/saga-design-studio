@@ -12,3 +12,17 @@
 	font-size: 21px;
 	line-height: 1.8;
 }
+.tg-card-title {
+	font-family: "Baskervville";
+	color: var(--color-text-dark);
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 1.4;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	transform: scaleY(0.9);
+}
+.tg-card-description {
+	font-size: 15px;
+	line-height: 1.33;
+}

@@ -1,13 +1,13 @@
 @use "./config.scss" as config;
 :root {
-	--section-space: 80px;
+	--section-space: 60px;
 	--container-save-space: 60px;
 	@media (max-width: config.$mbpT) {
-		--section-space: 60px;
+		--section-space: 50px;
 	}
-	// @media (max-width: config.$mbpM) {
-	// 	--section-space: 24px;
-	// }
+	@media (max-width: config.$mbpM) {
+		--section-space: 40px;
+	}
 	@media (max-width: config.$mbpPC) {
 		--container-save-space: 40px;
 	}
@@ -113,6 +113,12 @@ body main {
 		letter-spacing: 0.3em;
 		text-transform: uppercase;
 		margin-bottom: 50px;
+		@media (max-width: config.$mbpT) {
+			margin-bottom: 40px;
+		}
+		@media (max-width: config.$mbpM) {
+			margin-bottom: 32px;
+		}
 		// &::before {
 		// 	content: "";
 		// 	position: absolute;

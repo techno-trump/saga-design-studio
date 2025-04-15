@@ -51,6 +51,7 @@ b {
 	background-color: var(--bg-color, transparent);
 	cursor: pointer;
 	text-align: center;
+	opacity: var(--opacity, 1);
 	&_hover-decor {
 		position: relative;
 		left: 0;
@@ -88,7 +89,10 @@ b {
 		--hover-color: var(--color-primary-light);
 	}
 	&_light#{&}_nav {
+		--opacity: 0.8;
 		--color: var(--color-text-light);
+		--hover-color: var(--color-text-light);
+		--hover-opacity: 1;
 	}
 	&_social {
 		--hover-color: var(--color-primary);
@@ -127,7 +131,12 @@ b {
 		opacity: 0.6;
 	}
 }
-
+.swiper-wrapper {
+	display: flex;
+}
+.swiper-slide {
+	flex: 1 0 auto;
+}
 .logo {
 	//--ratio: 50%;
 	display: inline-block;
@@ -140,12 +149,12 @@ b {
 	&__img {
 		opacity: 1;
 		transition: opacity 0.3s;
-		html[data-theme="light"] &_dark {
-			opacity: 0;
-		}
-		html[data-theme="dark"] &_light {
-			opacity: 0;
-		}
+		// html[data-theme="light"] &_dark {
+		// 	opacity: 0;
+		// }
+		// html[data-theme="dark"] &_light {
+		// 	opacity: 0;
+		// }
 	}
 	&__caption {
 		position: absolute;
@@ -292,5 +301,16 @@ b {
 		width: calc(var(--size) * 3);
 		background-color: var(--color-surface-light);
 		opacity: 1;
+	}
+}
+
+[data-component*=":intersection-observer:"] {
+	opacity: 0;
+	transform: scale(0.95) translateY(-5px);
+	transition: opacity 0.5s 0.5s, filter 0.5s 0.5s, transform 0.5s 0.5s;
+	&._shown {
+		opacity: 1;
+		transform: none;
+		//filter: blur(0);
 	}
 }

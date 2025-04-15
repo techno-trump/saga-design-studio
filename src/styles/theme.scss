@@ -10,41 +10,41 @@
   --color-primary-light: #d36b0a;
   --color-primary-dark: #713600;
 }
-html[data-theme="dark"] {
-	/* Базовые поверхности */
-  --color-surface: black; /* Основной фон rgb(43, 43, 43); */ 
-	--color-surface-muted: #212121; /* Фон ещё на уровень ниже */
+// html[data-theme="dark"] {
+// 	/* Базовые поверхности */
+//   --color-surface: black; /* Основной фон rgb(43, 43, 43); */ 
+// 	--color-surface-muted: #212121; /* Фон ещё на уровень ниже */
 	
-  --color-surface-alt: #e7e7e7; /* Вторичный фон */
+//   --color-surface-alt: #e7e7e7; /* Вторичный фон */
   
-  --color-elevation-1: #f8f9fa; /* Лёгкое поднятие */
-  --color-elevation-2: #e9ecef; /* Более выраженная "тень" */
+//   --color-elevation-1: #f8f9fa; /* Лёгкое поднятие */
+//   --color-elevation-2: #e9ecef; /* Более выраженная "тень" */
 
-  /* Текст */
-  --color-text-primary: #f6f0de;
-	--color-text-base: white;
-  --color-text-secondary: #e7e7e7;
-  --color-text-muted: #adb5bd;
-  --color-text-primary-inverted: black;
-	--color-text-secondary-inverted: #212121;
+//   /* Текст */
+//   --color-text-primary: #f6f0de;
+// 	--color-text-base: white;
+//   --color-text-secondary: #e7e7e7;
+//   --color-text-muted: #adb5bd;
+//   --color-text-primary-inverted: black;
+// 	--color-text-secondary-inverted: #212121;
 
-  /* Вспомогательные состояния */
-  --color-success: #28a745;
-  --color-warning: #ffc107;
-  --color-danger: #dc3545;
-  --color-info: #17a2b8;
+//   /* Вспомогательные состояния */
+//   --color-success: #28a745;
+//   --color-warning: #ffc107;
+//   --color-danger: #dc3545;
+//   --color-info: #17a2b8;
 
-  /* Границы и разделители */
-  --color-border: #dee2e6;
-  --color-border-strong: #ced4da;
-  --color-border-light: #e9ecef;
+//   /* Границы и разделители */
+//   --color-border: #dee2e6;
+//   --color-border-strong: #ced4da;
+//   --color-border-light: #e9ecef;
 
-  /* Интерфейсные состояния */
-  --color-hover: rgba(0, 123, 255, 0.1);
-  --color-focus: rgba(0, 123, 255, 0.3);
-  --color-disabled: #6c757d;
-}
-html[data-theme="light"] {
+//   /* Интерфейсные состояния */
+//   --color-hover: rgba(0, 123, 255, 0.1);
+//   --color-focus: rgba(0, 123, 255, 0.3);
+//   --color-disabled: #6c757d;
+// }
+html[data-theme="light"], html[data-theme="dark"] {
 	/* Базовые поверхности */
   --color-surface: #f5f1e5; /* Основной фон rgb(43, 43, 43); */
 	--color-surface-muted: #f8f9fa; /* Фон ещё на уровень ниже */
@@ -68,7 +68,7 @@ html[data-theme="light"] {
   --color-info: #17a2b8;
 
   /* Границы и разделители */
-  --color-border: #dee2e6;
+  --color-border: #D8D2C0;
   --color-border-strong: #ced4da;
   --color-border-light: #e9ecef;
 

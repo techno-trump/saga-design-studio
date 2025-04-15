@@ -8,6 +8,50 @@ import { isMobile } from "./utils.js";
 //import initDisclosures from "./disclosure.js";
 import Lenis from 'lenis';
 
+class LazyLoadAgent {
+	constructor() {
+		this.paramsMap = new WeakMap();
+		this.intersectionObserver = new IntersectionObserver((entries, observer) => {
+			entries.forEach(({ isIntersecting, target }) => {
+				if (isIntersecting) {
+					this.load(target);
+					observer.unobserve(target);
+				}
+			});
+		}, { threshold: 0, rootMargin: "30%" });
+		this.mutationObserver = new MutationObserver((mutations, observer) => {
+				console.log("observer: ", observer);
+			mutations.forEach((mutation) => {
+				const { type, target, attributeName } = mutation;
+				const params = this.paramsMap.get(target);
+				if (!params) return;
+				if (attributeName !== params.triggerAttribute) return;
+				if (attributeName === "class") {
+					if (!params.values.some(item => target.classList.contains(item))) return;
+				} else {
+					if (!params.values.some(item => target.getAttribute(attributeName).includes(item))) return;
+				}
+				this.load(params.elem);
+			});
+		});
+	}
+	watch(elem) {
+		const triggerElem = elem.hasAttribute("data-lazyload-trigger-target") ? elem.closest(elem.getAttribute("data-lazyload-trigger-target")) : elem;
+		if (elem.hasAttribute("data-lazyload-trigger")) {
+			const [triggerAttribute, rawValues] = elem.getAttribute("data-lazyload-trigger").split(":").map(part => part.trim());
+			const values = rawValues.split(",").map(part => part.trim());
+			this.paramsMap.set(triggerElem, { elem, triggerAttribute, values });
+			this.mutationObserver.observe(triggerElem, { attributes: true, attributeFilter: [triggerAttribute] });
+		} else {
+			this.intersectionObserver.observe(triggerElem);
+		}
+	}
+	load(target) {
+		target.hasAttribute("data-srcset") && target.setAttribute("srcset", target.getAttribute("data-srcset"));
+		target.hasAttribute("data-src") && target.setAttribute("src", target.getAttribute("data-src"));
+	}
+}
+
 window.app = window.app || {};
 window.app.hoverMedia = window.matchMedia("(any-hover: hover)");
 window.app.lenis =  new Lenis({
@@ -19,13 +63,27 @@ document.documentElement.classList.toggle("is-mobile", isMobile.any());
 document.documentElement.style.setProperty("--scroll-width", `${window.innerWidth - document.documentElement.offsetWidth}px`);
 // bp theme switch
 initThemes();
+//initDisclosures();
+app.drawers.init();
+initImgLazyLoad();
 
 initHeroSlider();
 initProjectsSlider();
 initHeaderChangeOnScroll();
 
-//initDisclosures();
-app.drawers.init();
+document.querySelectorAll(`[href*="#"]`).forEach(elem => {
+	elem.addEventListener("click", (e) => {
+		e.preventDefault();
+		const pattern = /.*?(\#.*)/;
+		const href = elem.getAttribute("href");
+		const match = href.match(pattern);
+		const anchor = match ? match[1] : null;
+
+		history.pushState(null, "", anchor);
+		app.drawers.close("main-menu");
+		window.app.lenis.scrollTo(anchor, { offset: -60 });
+	});
+});
 
 const intersectionObserver = new IntersectionObserver((entries) => {
 	entries.forEach(entry => {
@@ -33,7 +91,7 @@ const intersectionObserver = new IntersectionObserver((entries) => {
 			entry.target.classList.add("_shown");
 		}
 	});
-}, { threshold: window.innerWidth <= 768 ? 0.4 : 0.8 });
+}, { threshold: window.innerWidth <= 768 ? 0.2 : 0.3 });
 
 document.querySelectorAll(`[data-component*=":intersection-observer:"]`).forEach(elem => {
 	intersectionObserver.observe(elem);
@@ -104,7 +162,7 @@ function initProjectsSlider() {
 function initThemes() {
 	const elems = document.querySelectorAll(".theme-switch__switch");
 
-	const currentTheme = localStorage.getItem("theme") || "dark";
+	const currentTheme = localStorage.getItem("theme") || "light";
 	document.documentElement.setAttribute("data-theme", currentTheme);
 
 	const switchTheme = () => {
@@ -115,6 +173,11 @@ function initThemes() {
 	};
 
 	elems.forEach(elem => elem.addEventListener("click", switchTheme));
+}
+
+function initImgLazyLoad() {
+	app.lazyLoadAgent = new LazyLoadAgent();
+	document.querySelectorAll("[data-lazyload], [data-lazyload-trigger]").forEach(elem => app.lazyLoadAgent.watch(elem));
 }
 
 function initHeaderChangeOnScroll() {
